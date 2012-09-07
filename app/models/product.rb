@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Product < ActiveRecord::Base
   attr_accessible :description, :image_url, :price, :title
 
@@ -8,4 +9,21 @@ class Product < ActiveRecord::Base
       :with => %r{\.(gif|jpg|png)$}i,
       :message => "mast be a URL for GIF, JPG or PNG image"
   }
+
+  has_many :line_items
+
+  before_destroy :ensure_not_referenced_by_any_line_item
+
+  private
+
+    # Убеждаемся в отсутствии товарных позиций, ссылающихся на данный товар
+    def ensure_not_referenced_by_any_line_item
+      if line_items.empty?
+        return true
+      else
+        errors.add(:base, "Существует товарная позиция")
+        return false
+      end
+    end
+
 end
