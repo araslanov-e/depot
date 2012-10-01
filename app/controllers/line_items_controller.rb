@@ -1,4 +1,7 @@
 class LineItemsController < ApplicationController
+
+  skip_before_filter :authorize, only: :create # Пропустить фильтр кроме ...
+
   # GET /line_items
   # GET /line_items.json
   def index

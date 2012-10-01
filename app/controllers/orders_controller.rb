@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+  skip_before_filter :authorize, only: [:new, :create] # Пропустить фильтр кроме ...
+
   def create
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(current_cart)
