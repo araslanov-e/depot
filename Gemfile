@@ -32,7 +32,7 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
@@ -40,3 +40,7 @@ gem 'jquery-rails'
 gem 'will_paginate', '~> 3.0'
 
 gem 'bcrypt-ruby' # for has_secure_password in User
+
+group :production do
+  gem 'mysql2'
+end
